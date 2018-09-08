@@ -1,0 +1,253 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?>      <div class="ms-hero-page-override ms-hero-img-airplane ms-bg-fixed ms-hero-bg-dark-light">
+        <div class="container">
+          <div class="text-center">
+            <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 animated zoomInDown animation-delay-5">Registre</h1>
+            <p class="lead lead-lg color-light text-center center-block mt-2 mw-800 text-uppercase fw-300 animated fadeInUp animation-delay-7">Não espere mais! Cadastre-se e comece a concorrer para desfrutar dos serviços que sua cidade oferece!
+              <span class="color-info">ALTAS CHANCES</span> DE GANHAR.</p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="card card-primary card-hero animated fadeInUp animation-delay-7">
+          <div class="card-body">
+            <form class="form-horizontal">
+              <fieldset>
+                <div class="row form-group">
+                  <label for="inputUser" class="col-md-2 control-label">Nome</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" id="inputUser" placeholder="Digite seu nome"> </div>
+                </div>
+                <div class="row form-group">
+                  <label for="inputEmail" class="col-md-2 control-label">Email</label>
+                  <div class="col-md-9">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Digite seu email"> </div>
+                </div>
+                <div class="row form-group">
+                  <label for="inputName" class="col-md-2 control-label">Whatsapp/Telefone</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" id="inputName" placeholder="Digite um número para contato"> </div>
+                </div>
+                <div class="row form-group">
+                  <label for="inputLast" class="col-md-2 control-label">CPF/IDENTIDADE</label>
+                  <div class="col-md-9">
+                    <input type="text" class="form-control" id="inputLast" placeholder="Digite seu CPF OU IDENTIDADE"> </div>
+                </div>
+                <div class="row form-group">
+                  <label for="inputGen" class="col-md-2 control-label">Gênero</label>
+                  <div class="col-md-9">
+                    <select id="inputGen" class="form-control selectpicker">
+                      <option>Masculino</option>
+                      <option>Feminino </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row form-group">
+                  <label for="inputDate" class="col-md-2 control-label">Nascimento</label>
+                  <div class="col-md-9">
+                    <input type="date" type="text" class="form-control" placeholder="dd/mm/aa"> </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="offset-lg-2 col-lg-6">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox">
+                        <span class="ml-2">Eu aceito os termos e condições.</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-lg-3">
+                    <button class="btn btn-raised btn-primary btn-block">REGISTRAR AGORA</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- container -->
+      <aside class="ms-footbar">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-4 ms-footer-col">
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title">Sitemap</h3>
+                <ul class="list-unstyled ms-icon-list three_cols">
+                  <li>
+                    <a href="index.html">
+                      <i class="zmdi zmdi-home"></i> Home</a>
+                  </li>
+                  <li>
+                    <a href="page-blog.html">
+                      <i class="zmdi zmdi-edit"></i> Blog</a>
+                  </li>
+                  <li>
+                    <a href="page-blog.html">
+                      <i class="zmdi zmdi-image-o"></i> Portafolio</a>
+                  </li>
+                  <li>
+                    <a href="portfolio-filters_sidebar.html">
+                      <i class="zmdi zmdi-case"></i> Works</a>
+                  </li>
+                  <li>
+                    <a href="page-timeline_left2.html">
+                      <i class="zmdi zmdi-time"></i> Timeline</a>
+                  </li>
+                  <li>
+                    <a href="page-pricing.html">
+                      <i class="zmdi zmdi-money"></i> Pricing</a>
+                  </li>
+                  <li>
+                    <a href="page-about.html">
+                      <i class="zmdi zmdi-favorite-outline"></i> About Us</a>
+                  </li>
+                  <li>
+                    <a href="page-team2.html">
+                      <i class="zmdi zmdi-accounts"></i> Our Team</a>
+                  </li>
+                  <li>
+                    <a href="page-services.html">
+                      <i class="zmdi zmdi-face"></i> Services</a>
+                  </li>
+                  <li>
+                    <a href="page-faq2.html">
+                      <i class="zmdi zmdi-help"></i> FAQ</a>
+                  </li>
+                  <li>
+                    <a href="page-login2.html">
+                      <i class="zmdi zmdi-lock"></i> Login</a>
+                  </li>
+                  <li>
+                    <a href="page-contact.html">
+                      <i class="zmdi zmdi-email"></i> Contact</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title">Subscribe</h3>
+                <p class="">Lorem ipsum Amet fugiat elit nisi anim mollit minim labore ut esse Duis ullamco ad dolor veniam velit.</p>
+                <form>
+                  <div class="form-group label-floating mt-2 mb-1">
+                    <div class="input-group ms-input-subscribe">
+                      <label class="control-label" for="ms-subscribe">
+                        <i class="zmdi zmdi-email"></i> Email Adress</label>
+                      <input type="email" id="ms-subscribe" class="form-control"> </div>
+                  </div>
+                  <button class="ms-subscribre-btn" type="button">Subscribe</button>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-5 col-md-7 ms-footer-col ms-footer-alt-color">
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title text-center mb-2">Last Articles</h3>
+                <div class="ms-footer-media">
+                  <div class="media">
+                    <div class="media-left media-middle">
+                      <a href="javascript:void(0)">
+                        <img class="media-object media-object-circle" src="assets/img/demo/p75.jpg" alt="..."> </a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <a href="javascript:void(0)">Lorem ipsum dolor sit expedita cumque amet consectetur adipisicing repellat</a>
+                      </h4>
+                      <div class="media-footer">
+                        <span>
+                          <i class="zmdi zmdi-time color-info-light"></i> August 18, 2016</span>
+                        <span>
+                          <i class="zmdi zmdi-folder-outline color-warning-light"></i>
+                          <a href="javascript:void(0)">Design</a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-left media-middle">
+                      <a href="javascript:void(0)">
+                        <img class="media-object media-object-circle" src="assets/img/demo/p75.jpg" alt="..."> </a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <a href="javascript:void(0)">Labore ut esse Duis consectetur expedita cumque ullamco ad dolor veniam velit</a>
+                      </h4>
+                      <div class="media-footer">
+                        <span>
+                          <i class="zmdi zmdi-time color-info-light"></i> August 18, 2016</span>
+                        <span>
+                          <i class="zmdi zmdi-folder-outline color-warning-light"></i>
+                          <a href="javascript:void(0)">News</a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media">
+                    <div class="media-left media-middle">
+                      <a href="javascript:void(0)">
+                        <img class="media-object media-object-circle" src="assets/img/demo/p75.jpg" alt="..."> </a>
+                    </div>
+                    <div class="media-body">
+                      <h4 class="media-heading">
+                        <a href="javascript:void(0)">voluptates deserunt ducimus expedita cumque quaerat molestiae labore</a>
+                      </h4>
+                      <div class="media-footer">
+                        <span>
+                          <i class="zmdi zmdi-time color-info-light"></i> August 18, 2016</span>
+                        <span>
+                          <i class="zmdi zmdi-folder-outline color-warning-light"></i>
+                          <a href="javascript:void(0)">Productivity</a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-5 ms-footer-col ms-footer-text-right">
+              <div class="ms-footbar-block">
+                <div class="ms-footbar-title">
+                  <span class="ms-logo ms-logo-white ms-logo-sm mr-1">M</span>
+                  <h3 class="no-m ms-site-title">Material
+                    <span>Style</span>
+                  </h3>
+                </div>
+                <address class="no-mb">
+                  <p>
+                    <i class="color-danger-light zmdi zmdi-pin mr-1"></i> 795 Folsom Ave, Suite 600</p>
+                  <p>
+                    <i class="color-warning-light zmdi zmdi-map mr-1"></i> San Francisco, CA 94107</p>
+                  <p>
+                    <i class="color-info-light zmdi zmdi-email mr-1"></i>
+                    <a href="mailto:joe@example.com">example@domain.com</a>
+                  </p>
+                  <p>
+                    <i class="color-royal-light zmdi zmdi-phone mr-1"></i>+34 123 456 7890 </p>
+                  <p>
+                    <i class="color-success-light fa fa-fax mr-1"></i>+34 123 456 7890 </p>
+                </address>
+              </div>
+              <div class="ms-footbar-block">
+                <h3 class="ms-footbar-title">Social Media</h3>
+                <div class="ms-footbar-social">
+                  <a href="javascript:void(0)" class="btn-circle btn-facebook">
+                    <i class="zmdi zmdi-facebook"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-twitter">
+                    <i class="zmdi zmdi-twitter"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-youtube">
+                    <i class="zmdi zmdi-youtube-play"></i>
+                  </a>
+                  <br>
+                  <a href="javascript:void(0)" class="btn-circle btn-google">
+                    <i class="zmdi zmdi-google"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-instagram">
+                    <i class="zmdi zmdi-instagram"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn-circle btn-github">
+                    <i class="zmdi zmdi-github"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>

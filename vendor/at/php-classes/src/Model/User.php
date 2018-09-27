@@ -178,6 +178,25 @@ public function checkPhoto()
 
 	}
 
+	public function getCities($search){
+		$search = "%"+$search+"%";
+		$sql = new Sql();
+
+		return $sql->select("SELECT uf,nome,id FROM cities WHERE nome LIKE :name",[
+			":name" => $search
+		]);
+	}
+
+	public function verify_email($email){
+		$sql = new Sql;
+
+		$result = $sql->select("SELECT email FROM users WHERE email = :email",[
+			":email"	=>	$email
+		]);
+
+		return $result;
+	}
+
 }
 
 

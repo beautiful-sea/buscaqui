@@ -1,8 +1,8 @@
 	<div class="col-sm-13  col-md-12 main">  
     
     <div class="row tile-row">
-      <div class="col-md-3 col-xs-6 tile"><div class="icon-frame"><i class="ion-ios-pricetags"></i> </div><h1><?php if(isset($tickets_assigned_to_me)){echo $tickets_assigned_to_me;} ?> <span class="hidden-xs"><?=$this->lang->line('application_tickets');?></span></h1><h2 class="hidden-xs"><?=$this->lang->line('application_assigned_to_me');?></h2></div>
-      <div class="col-md-3 col-xs-6 tile"><div class="icon-frame secondary"><i class="ion-ios-albums"></i> </div><h1><?php if(isset($tickets_in_my_queue)){echo $tickets_in_my_queue;} ?> <span class="hidden-xs"><?=$this->lang->line('application_tickets');?></span></h1><h2 class="hidden-xs"><?=$this->lang->line('application_in_my_queue');?></h2></div>
+      <div class="col-md-3 col-xs-6 tile"><div class="icon-frame"><i class="ion-ios-pricetags hidden-xs"></i> </div><h1><?php if(isset($tickets_assigned_to_me)){echo $tickets_assigned_to_me;} ?> <span class=""><?=$this->lang->line('application_tickets');?></span></h1><h2 class=""><?=$this->lang->line('application_assigned_to_me');?></h2></div>
+      <div class="col-md-3 col-xs-6 tile"><div class="icon-frame secondary"><i class="ion-ios-albums hidden-xs"></i> </div><h1><?php if(isset($tickets_in_my_queue)){echo $tickets_in_my_queue;} ?> <span class=""><?=$this->lang->line('application_tickets');?></span></h1><h2 class=""><?=$this->lang->line('application_in_my_queue');?></h2></div>
       <div class="col-md-6 col-xs-12 tile">
       <div style="width:97%; height: 93px;">
       <canvas id="tileChart" class="hidden-xs" width="auto" height="50"></canvas>

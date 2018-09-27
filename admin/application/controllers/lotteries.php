@@ -1,7 +1,32 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-
 class Lotteries extends MY_Controller{
+
+	function __construct()
+	{
+		parent::__construct();
+		$access = FALSE;
+		if(!$this->user->admin){	
+			redirect('ctickets');
+		}elseif($this->user->admin){
+			foreach ($this->view_data['menu'] as $key => $value) { 
+				if($value->link == "categories"){
+					$access = TRUE;
+				}
+			}
+			if(!$access && !empty($this->view_data['menu'][0])){
+				redirect($this->view_data['menu'][0]->link);
+			}elseif(empty($this->view_data['menu'][0])){
+				$this->view_data['error'] = "true";
+				$this->session->set_flashdata('message', 'error: Você não possui acesso para nenhum módulo! Contate o Administrador.');
+				redirect('login');
+			}
+			
+		}else{
+			redirect('login');
+		}
+
+	}
 
 	function index()
 	{

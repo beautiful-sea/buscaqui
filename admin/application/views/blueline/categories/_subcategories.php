@@ -9,7 +9,10 @@ echo form_open($form_action, $attributes);
         <label for="name"><?=$this->lang->line('application_name');?></label>
         <input id="name" name="name" type="text" class="required form-control"  value="<?php if(isset($subcategories)){ echo $subcategories->name; } ?>"  required/>
 </div>
-
+ <div class="form-group">
+        <label for="icon"><?=$this->lang->line('application_icon');?></label>
+        <input id="icon" name="icon" type="text" class="required form-control"  value="<?php if(isset($subcategories)){ echo $subcategories->icon; } ?>"  required/>
+</div>
 <div class="form-group">
         <label for="categories"><?=$this->lang->line('application_category');?></label>
         <?php $options = array();
@@ -17,7 +20,7 @@ echo form_open($form_action, $attributes);
                 $options[$value->id] = $value->name;
                 endforeach;
         
-        echo form_dropdown('idcategory', $options, 0, 'style="width:100%" class="chosen-select"');?>
+        echo form_dropdown('idcategory', $options, 0, 'style="width:100%" class="chosen-select form-control"');?>
 </div> 
 
         <div class="modal-footer">

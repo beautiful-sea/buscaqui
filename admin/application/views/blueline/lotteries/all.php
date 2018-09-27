@@ -21,16 +21,16 @@
 		<table class="data table" id="lotteries" cellspacing="0" cellpadding="0">
 		<thead>
 			<th class="hidden-xs" width="70px"><?=$this->lang->line('application_lottery');?></th>
-			<th class="hidden-xs"><?=$this->lang->line('application_issue_date');?></th>
+			<th class=""><?=$this->lang->line('application_issue_date');?></th>
 			<th class="hidden-xs"><?=$this->lang->line('application_end_date');?></th>
-			<th class="hidden-xs"><?=$this->lang->line('application_status');?></th>
+			<th class=""><?=$this->lang->line('application_status');?></th>
 			<th><?=$this->lang->line('application_action');?></th>
 		</thead>
 		<?php foreach ($lotteries as $value):?>
 
 		<tr id="<?=$value->id;?>" >
 			<td class="hidden-xs"><?=$value->id;?></td>
-			<td class="hidden-xs"><?=$value->start_date ?></td>
+			<td class=""><?=$value->start_date ?></td>
 			<td class="hidden-xs"><?=$value->end_date ?></td>
 			<td><span class="label <?php if($value->status == "Active"){echo 'label-success';}else{echo "label-important";} ?>">
 				<?php 	if($value->end_date <= date('d-m-Y') && $value->status != "Inactive"){

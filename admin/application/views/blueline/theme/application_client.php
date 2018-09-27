@@ -84,12 +84,12 @@ if(is_numeric($act_uri_submenu)){
     <div class="sidebar-bg"></div>
         <div class="sidebar">
         <div class="navbar-header">
-         
           <a class="navbar-brand" href="#"><img src="<?=base_url()?><?=$core_settings->logo;?>" alt="<?=$core_settings->company;?>"></a>
         </div>
           
           <ul class="nav nav-sidebar">
               <?php foreach ($menu as $key => $value) { ?>
+
                <?php 
                $icon = "";
                switch($value->icon){
@@ -155,7 +155,7 @@ if(is_numeric($act_uri_submenu)){
       
       <span class="hidden-xs"><?php echo character_limiter($this->client->firstname." ".$this->client->lastname, 25);?> </span>
       <span class="hidden-xs"><a href="<?=site_url("cmessages");?>" title="<?=$this->lang->line('application_messages');?>"><i class="fa fa-inbox"></i></a></span>
-      <span class="hidden-xs"><a href="<?=site_url("agent");?>" data-toggle="mainmodal" title="<?=$this->lang->line('application_profile');?>"><i class="fa fa-cog"></i></a></span>
+      <span class="hidden-xs"><a href="<?=site_url("agent?teste=oi");?>" data-toggle="mainmodal" title="<?=$this->lang->line('application_profile');?>"><i class="fa fa-cog"></i></a></span>
       <span class="btn-group">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                       <?php if(!empty($core_settings->language)){$default_language = $core_settings->language; }else{ $default_language = "english"; } ?>

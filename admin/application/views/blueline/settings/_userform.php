@@ -29,15 +29,15 @@ echo form_open_multipart($form_action, $attributes);
 </div>
 
 <div class="form-group">
-                <label for="userfile"><?=$this->lang->line('application_profile_picture');?></label>
-                <div>
-                    <input id="uploadFile" type="text" name="dummy" class="form-control uploadFile" placeholder="Choose File" disabled="disabled" />
-                          <div class="fileUpload btn btn-primary">
-                              <span><i class="fa fa-upload"></i><span class="hidden-xs"> <?=$this->lang->line('application_select');?></span></span>
-                              <input id="uploadBtn" type="file" name="userfile" class="upload" />
-                          </div>
-                  </div>
-              </div> 
+<label for="userfile"><?=$this->lang->line('application_profile_picture');?></label>
+<div>
+    <input id="uploadFile" type="text" name="dummy" class="form-control uploadFile" placeholder="Choose File" disabled="disabled" />
+          <div class="fileUpload btn btn-primary">
+              <span><i class="fa fa-upload"></i><span class="hidden-xs"> <?=$this->lang->line('application_select');?></span></span>
+              <input id="uploadBtn" type="file" name="userfile" class="upload" />
+          </div>
+  </div>
+</div> 
 
 <?php if(!isset($agent)){ ?>
 <div class="form-group">
@@ -99,7 +99,13 @@ if(isset($user)){ $access = explode(",", $user->access); }
 </ul>
 </div>
 <?php } ?>
+<?php if($this->user->admin == "0"){ ?>
+<div class="form-group">
+        <label for="title"><?=$this->lang->line('application_title');?> *</label>
+        <input id="title" type="text" name="title" class="required form-control"  value="<?php if(isset($user)){echo $user->title;} ?>"  required/>
+</div>
 
+<?php } ?>
 
         <div class="modal-footer">
         <input type="submit" name="send" class="btn btn-primary" value="<?=$this->lang->line('application_save');?>"/>

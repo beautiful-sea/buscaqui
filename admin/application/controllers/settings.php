@@ -19,53 +19,176 @@ class Settings extends MY_Controller
 		}else{
 			redirect('login');
 		}
-		if(!$this->user->admin) {
+		/*if(!$this->user->admin) {
 			$this->session->set_flashdata('message', 'error:'.$this->lang->line('messages_no_access'));
 			redirect('dashboard');
-		}
-		$this->view_data['submenu'] = array(
-				 		$this->lang->line('application_settings') => 'settings',
-				 		$this->lang->line('application_templates') => 'settings/templates',
-				 		$this->lang->line('application_pdf_templates') => 'settings/invoice_templates',
-				 		$this->lang->line('application_paypal') => 'settings/paypal',
-				 		$this->lang->line('application_stripe') => 'settings/stripe',
-				 		$this->lang->line('application_bank_transfer') => 'settings/bank_transfer',
-				 		$this->lang->line('application_users') => 'settings/users',
-				 		$this->lang->line('application_system_updates') => 'settings/updates',
-				 		$this->lang->line('application_backup') => 'settings/backup',
-				 		$this->lang->line('application_cronjob') => 'settings/cronjob',
-				 		$this->lang->line('application_ticket') => 'settings/ticket',
-				 		$this->lang->line('application_customize') => 'settings/customize',
-				 		$this->lang->line('application_logs') => 'settings/logs',
-				 		);	
-		$this->config->load('defaults');
-		$settings = Setting::first();
-		$this->load->helper('curl');
-		$object = remote_get_contents('http://fc2.luxsys-apps.com/updates/xml.php?code='.$settings->pc);
-		$object = json_decode($object);
-		$this->view_data['update_count'] = FALSE;
-		if(isset($object->error)) {
-			if($object->error == FALSE && $object->lastupdate > $settings->version){
-			$this->view_data['update_count'] = "1";
+		}*/
+		if($this->user->admin)
+		{
+			$this->view_data['submenu'] = array(
+					 		$this->lang->line('application_settings') => 'settings',
+					 		$this->lang->line('application_templates') => 'settings/templates',
+					 		$this->lang->line('application_pdf_templates') => 'settings/invoice_templates',
+					 		$this->lang->line('application_paypal') => 'settings/paypal',
+					 		$this->lang->line('application_stripe') => 'settings/stripe',
+					 		$this->lang->line('application_bank_transfer') => 'settings/bank_transfer',
+					 		$this->lang->line('application_users') => 'settings/users',
+					 		$this->lang->line('application_system_updates') => 'settings/updates',
+					 		$this->lang->line('application_backup') => 'settings/backup',
+					 		$this->lang->line('application_cronjob') => 'settings/cronjob',
+					 		$this->lang->line('application_ticket') => 'settings/ticket',
+					 		$this->lang->line('application_customize') => 'settings/customize',
+					 		$this->lang->line('application_logs') => 'settings/logs',
+					 		);	
+			$this->config->load('defaults');
+			$settings = Setting::first();
+			$this->load->helper('curl');
+			$object = remote_get_contents('http://fc2.luxsys-apps.com/updates/xml.php?code='.$settings->pc);
+			$object = json_decode($object);
+			$this->view_data['update_count'] = FALSE;
+			if(isset($object->error)) {
+				if($object->error == FALSE && $object->lastupdate > $settings->version){
+				$this->view_data['update_count'] = "1";
+				}
 			}
+			$this->view_data['subcategories'] = Subcategory::find('all');
+		}elseif(!$this->user->admin)
+		{
+			$this->view_data['submenu'] = array(
+							$this->lang->line('application_company_data') => 'settings',
+					 		$this->lang->line('application_access_data') => 'settings/caccess_data',
+					 		$this->lang->line('application_user_data') => 'settings/cuser_data'
+					 		
+					 		);	
+			$this->config->load('defaults');
+			$settings = Setting::first();
+			$this->load->helper('curl');
+			$object = remote_get_contents('http://fc2.luxsys-apps.com/updates/xml.php?code='.$settings->pc);
+			$object = json_decode($object);
+			$this->view_data['update_count'] = FALSE;
+			if(isset($object->error)) {
+				if($object->error == FALSE && $object->lastupdate > $settings->version){
+				$this->view_data['update_count'] = "1";
+				}
+			}
+			$this->view_data['subcategories'] = Subcategory::find('all');
 		}
-		$this->view_data['subcategories'] = Subcategory::find('all');
+		
 	}
 	
 	function index()
 	{
-		$this->view_data['breadcrumb'] = $this->lang->line('application_settings');
-		$this->view_data['breadcrumb_id'] = "settings";
+		if($this->user->admin){
 
-		$this->view_data['settings'] = Setting::first();
-		$this->view_data['form_action'] = 'settings/settings_update';
-		$this->content_view = 'settings/settings_all';
+			$this->view_data['breadcrumb'] = $this->lang->line('application_settings');
+			$this->view_data['breadcrumb_id'] = "settings";
 
+			$this->view_data['settings'] = Setting::first();
+			$this->view_data['form_action'] = 'settings/settings_update';
+			$this->content_view = 'settings/settings_all';
+		}else{
+
+			$this->view_data['breadcrumb'] = $this->lang->line('application_settings');
+			$this->view_data['breadcrumb_id'] = "settings";
+			$this->view_data['settings'] = Setting::first();
+			$this->view_data['user'] = $this->user;
+			$this->client = Client::find_by_email($this->user->email);
+			$this->view_data['client'] = $this->client;
+
+			$this->view_data['company'] = Company::find_by_client_id($this->client->id);
+
+			$this->view_data['form_action'] = 'settings/settings_update';
+			$this->content_view = 'settings/csettings_all';	
+		}
+		
+
+
+	}
+	function cuser_data()
+	{	
+		if($_POST && !$this->user->admin){
+			$client = Client::find_by_email($this->user->email);
+			
+
+			$_POST['mobile'] = $_POST['cddd'].$_POST['mobile'];
+			$_POST['phone'] = $_POST['tddd'].$_POST['phone'];
+			
+			unset($_POST['cddd']);
+			unset($_POST['tddd']);
+			unset($_POST['send']);
+			$client->update_attributes($_POST);
+			$this->session->set_flashdata('message', 'success:'.$this->lang->line('messages_save_settings_success'));
+			
+	 		redirect('settings/cuser_data');
+
+		}elseif(!$this->user->admin){
+
+			$this->view_data['breadcrumb'] = $this->lang->line('application_settings');
+			$this->view_data['breadcrumb_id'] = "settings";
+			$this->view_data['settings'] = Setting::first();
+			$this->view_data['user'] = $this->user;
+			$this->client = Client::find_by_email($this->user->email);
+			$this->view_data['client'] = $this->client;
+
+			$this->view_data['form_action'] = 'settings/cuser_data';
+			$this->content_view = 'settings/cuser_data';	
+		}
+
+	}
+
+	function caccess_data()
+	{	
+		if($_POST && !$this->user->admin){
+
+			$config['upload_path'] = './files/media/';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '1600';
+			$config['max_width']  = '1300';
+			$config['max_height']  = '1300';
+
+			$this->load->library('upload', $config);
+
+			if ( ! $this->upload->do_upload("userfile"))
+			{
+				$error = $this->upload->display_errors('', ' ');
+				if($error != "You did not select a file to upload."){
+					$this->session->set_flashdata('message', 'error:'.$error);	
+			}
+			}
+			else
+			{	
+				$data = array('upload_data' => $this->upload->data());
+				$_POST['userpic'] = $data['upload_data']['file_name'];
+				unlink('./files/media/'.$this->user->userpic);
+			}
+			if(empty($_POST['password'])){ unset($_POST['password']);}
+
+			unset($_POST['userfile']);
+			unset($_POST['dummy']);
+			unset($_POST['cddd']);
+			unset($_POST['tddd']);
+			unset($_POST['send']);
+			unset($_POST['confirm_password']);
+			$this->user->update_attributes($_POST);
+			$this->session->set_flashdata('message', 'success:'.$this->lang->line('messages_save_settings_success'));
+			
+	 		redirect('settings/caccess_data');
+
+		}elseif(!$this->user->admin){
+
+			$this->view_data['breadcrumb'] = $this->lang->line('application_settings');
+			$this->view_data['breadcrumb_id'] = "settings";
+			$this->view_data['settings'] = Setting::first();
+			$this->view_data['user'] = $this->user;
+
+			$this->view_data['form_action'] = 'settings/caccess_data';
+			$this->content_view = 'settings/caccess_data';	
+		}
 
 	}
 
 	function settings_update(){
-		if($_POST){
+		if($_POST && $this->user->admin){
 
 					$config['upload_path'] = './files/media/';
 					$config['allowed_types'] = 'gif|jpg|png';
@@ -113,6 +236,72 @@ class Settings extends MY_Controller
 		$settings->update_attributes($_POST);
 		$this->session->set_flashdata('message', 'success:'.$this->lang->line('messages_save_settings_success'));
  		redirect('settings');
+
+ 		}elseif($_POST && !$this->user->admin){
+ 			$this->client = Client::find_by_email($this->user->email);
+
+			$company = Company::find_by_client_id($this->client->id);
+
+					$config['upload_path'] = './files/media/';
+					$config['allowed_types'] = 'gif|jpg|png';
+					$config['max_size']	= '1900';
+					$config['max_width']  = '1920';
+					$config['max_height']  = '1600';
+
+					$this->load->library('upload', $config);
+
+					if ( ! $this->upload->do_upload("clogo"))
+						{
+							$error = $this->upload->display_errors('', ' ');
+							if($error != "You did not select a file to upload."){
+								$this->session->set_flashdata('message', 'error:'.$error);
+							}
+						}
+						else
+						{
+							if($company->logo != 'files/media/no-pic.png'){
+								unlink($company->logo);
+							}
+							
+							$data = array('upload_data' => $this->upload->data());
+							$_POST['logo'] = "files/media/".$data['upload_data']['file_name'];
+							var_dump($data);
+						}
+					if ( ! $this->upload->do_upload("cfacade"))
+						{
+							$error = $this->upload->display_errors('', ' ');
+							if($error != "You did not select a file to upload."){
+								$this->session->set_flashdata('message', 'error:'.$error);	
+							}
+						}
+						else
+						{
+							if($company->facade_photo != 'files/media/no-pic.png'){
+								unlink($company->facade_photo);
+							}
+							
+							$data = array('upload_data' => $this->upload->data());
+							$_POST['facade_photo'] = "files/media/".$data['upload_data']['file_name'];
+						}
+				
+		unset($_POST['clogo']);	
+		unset($_POST['cfacade']);
+		unset($_POST['file-name']);	
+		unset($_POST['file-name2']);
+		unset($_POST['_wysihtml5_mode']);				
+		unset($_POST['send']);
+
+		$_POST['mobile'] = $_POST['cddd'].$_POST['mobile'];
+		$_POST['phone'] = $_POST['tddd'].$_POST['phone'];
+		//if(!isset($_POST['registration'])){$_POST['registration'] = 0;}
+		
+		unset($_POST['cddd']);
+		unset($_POST['tddd']);
+		$company->update_attributes($_POST);
+		$this->session->set_flashdata('message', 'success:'.$this->lang->line('messages_save_settings_success'));
+		
+ 		redirect('settings');
+
  		}else{
  			$this->session->set_flashdata('message', 'error:'.$this->lang->line('messages_save_settings_error'));
  			redirect('settings');

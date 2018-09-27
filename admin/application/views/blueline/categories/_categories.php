@@ -10,6 +10,10 @@ echo form_open($form_action, $attributes);
         <label for="name"><?=$this->lang->line('application_name');?></label>
         <input id="name" name="name" type="text" class="required form-control"  value="<?php if(isset($categories)){ echo $categories->name; } ?>"  required/>
 </div>
+ <div class="form-group">
+        <label for="icon"><?=$this->lang->line('application_icon');?></label>
+        <input id="icon" name="icon" type="text" class="required form-control"  value="<?php if(isset($categories)){ echo $categories->icon; } ?>"  required/>
+</div>
 
         <div class="modal-footer">
         <input type="submit" name="send" class="btn btn-primary" value="<?=$this->lang->line('application_save');?>"/>

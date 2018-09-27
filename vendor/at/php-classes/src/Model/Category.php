@@ -11,7 +11,12 @@ class Category extends Model{
 
 		$sql = new Sql;
 
-		return $sql->select("SELECT * FROM categories order by name");
+		$all = $sql->select("SELECT * FROM categories order by name");
+
+		for ($i=0; $i < count($all); $i++) { 
+			# code...
+		}
+		return $all;
 
 	}
 
@@ -53,9 +58,7 @@ class Category extends Model{
 
 		if($related === true){
 			return $sql->select("
-				SELECT * FROM tb_subcategories WHERE idsubcategory IN(
-				SELECT idsubcategory FROM tb_categoriessubcategories
-				 WHERE idcategory = :idcategory);",
+				SELECT * FROM subcategories WHERE idcategory = :idcategory;",
 				[':idcategory' => $this->getidcategory()]
 			);
 
@@ -92,6 +95,16 @@ class Category extends Model{
 			WHERE idcategory = :idcategory AND idsubcategory = :idsubcategory",
 			[":idcategory" => $idcategory,
 			":idsubcategory" => $idsubcategory]);
+	}
+
+	public function addCategoryToBusiness($idcategory, $idcompany){
+		$sql = new Sql;
+		$sql->query('INSERT INTO company_has_subcategory (idsubcategory,company_id) 
+    					VALUES (:idsubcategory, :company_id);',[
+    						":idsubcategory"	=> $idcategory,
+    						":company_id"		=> $idcompany
+    					]);
+		echo $this->getid();
 	}
 
 }

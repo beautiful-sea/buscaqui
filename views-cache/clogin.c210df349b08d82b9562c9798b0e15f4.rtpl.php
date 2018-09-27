@@ -1,0 +1,45 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?>      <div class="intro-full ms-hero-img-black_wall ms-hero-bg-primary color-white ms-bg-fixed" id="home">
+        <div class="intro-full-content index-1">
+          <div class="container">
+
+            <div class="row justify-content-md-center">
+              <div class="col-lg-6">
+                <div class="card  card-dark animated fadeInUp animation-delay-7">
+                  <div class="card-body">
+                    <h1 class="color-primary text-center">Login</h1>
+                    <form class="form-horizontal">
+                      <fieldset>
+                        <div class="form-group row">
+                          <label for="inputEmail" class="col-md-3 control-label">Email</label>
+                          <div class="col-md-9">
+                            <input type="email" class="form-control" id="inputEmail" > </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword" class="col-md-3 control-label">Senha</label>
+                          <div class="col-md-9">
+                            <input type="password" class="form-control" id="inputPassword" > </div>
+                        </div>
+                      </fieldset>
+                      <button class="btn btn-raised btn-primary btn-block">Login
+                        <i class="zmdi zmdi-long-arrow-right no-mr ml-1"></i>
+                      </button>
+                    </form>
+                    <div class="text-center mt-4">
+                      <h3 class="color-dark">Login com</h3>
+                      <a href="javascript:void(0)" class="btn-circle btn-facebook">
+                        <i class="zmdi zmdi-facebook"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="btn-back-top">
+        <a href="#" data-scroll id="back-top" class="btn-circle btn-circle-primary btn-circle-sm btn-circle-raised ">
+          <i class="zmdi zmdi-long-arrow-up"></i>
+        </a>
+      </div>

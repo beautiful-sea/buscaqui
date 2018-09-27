@@ -3,11 +3,36 @@
 
 class Categories extends MY_Controller{
 
+		function __construct()
+	{
+		parent::__construct();
+		$access = FALSE;
+		if(!$this->user->admin){	
+			redirect('ctickets');
+		}elseif($this->user->admin){
+			foreach ($this->view_data['menu'] as $key => $value) { 
+				if($value->link == "categories"){
+					$access = TRUE;
+				}
+			}
+			if(!$access && !empty($this->view_data['menu'][0])){
+				redirect($this->view_data['menu'][0]->link);
+			}elseif(empty($this->view_data['menu'][0])){
+				$this->view_data['error'] = "true";
+				$this->session->set_flashdata('message', 'error: Você não possui acesso para nenhum módulo! Contate o Administrador.');
+				redirect('login');
+			}
+			
+		}else{
+			redirect('login');
+		}
+
+	}
 	function index()
 	{
 		$this->view_data['categories'] = Category::find('all',array('conditions' => array('inactive=?','0')));
 		$this->view_data['subcategories'] = Subcategory::find_by_sql('
-			SELECT a.id,a.name,a.idcategory, b.name as namecategory FROM subcategories as a
+			SELECT a.id,a.name,a.idcategory, a.icon, b.name as namecategory FROM subcategories as a
 			INNER JOIN categories as b ON(b.id = a.idcategory) ');
 		$this->content_view = 'categories/all';
 	}

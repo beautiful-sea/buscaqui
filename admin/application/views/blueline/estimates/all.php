@@ -23,7 +23,7 @@
 			<th ><?=$this->lang->line('application_client');?></th>
 			<th class="hidden-xs"><?=$this->lang->line('application_issue_date');?></th>
 			<th class="hidden-xs"><?=$this->lang->line('application_total');?></th>
-			<th><?=$this->lang->line('application_status');?></th>
+			<th class="hidden-xs"><?=$this->lang->line('application_status');?></th>
 			<th><?=$this->lang->line('application_action');?></th>
 		</thead>
 		<?php foreach ($estimates as $value):
@@ -44,7 +44,7 @@
 			<td><span class="label label-info"><?php if(isset($value->company->name)){echo $value->company->name; }?></span></td>
 			<td class="hidden-xs"><span><?php $unix = human_to_unix($value->issue_date.' 00:00'); echo '<span class="hidden">'.$unix.'</span> '; echo date($core_settings->date_format, $unix);?></span></td>
 			<td class="hidden-xs"><?=display_money(sprintf("%01.2f", round($value->sum, 2)));?></td>
-			<td><span class="label  <?=$label?> tt" <?=$change_date;?>><?=$this->lang->line('application_'.$value->estimate_status);?></span></td>
+			<td class="hidden-xs"><span class="label  <?=$label?> tt" <?=$change_date;?>><?=$this->lang->line('application_'.$value->estimate_status);?></span></td>
 		
 			<td class="option" width="8%">
 				        <button type="button" class="btn-option delete po" data-toggle="popover" data-placement="left" data-content="<a class='btn btn-danger po-delete ajax-silent' href='<?=base_url()?>estimates/delete/<?=$value->id;?>'><?=$this->lang->line('application_yes_im_sure');?></a> <button class='btn po-close'><?=$this->lang->line('application_no');?></button> <input type='hidden' name='td-id' class='id' value='<?=$value->id;?>'>" data-original-title="<b><?=$this->lang->line('application_really_delete');?></b>"><i class="fa fa-times"></i></button>

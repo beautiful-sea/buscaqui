@@ -24,7 +24,7 @@ class My_Controller extends CI_Controller
 		$this->lang->load('messages', $language);
 		$this->lang->load('event', $language);
 		$this->user = $this->session->userdata('user_id') ? User::find_by_id($this->session->userdata('user_id')) : FALSE;
-		$this->client = $this->session->userdata('client_id') ? Client::find_by_id($this->session->userdata('client_id')) : FALSE;
+		$this->client = $this->session->userdata('client_id') ? Client::find_by_email($this->user->email) : FALSE;
 
 
 		if($this->user || $this->client){

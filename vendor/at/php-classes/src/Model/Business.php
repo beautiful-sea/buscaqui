@@ -6,9 +6,6 @@ use \AT\Db\Sql;
 use \AT\Model;
 
 class Business extends Model{
-	
-
-	const SESSION = 'Business';
 
 	public function listAll(){
 
@@ -18,112 +15,33 @@ class Business extends Model{
             WHERE admin = 0 ORDER BY firstname");
 	}
 
-	public function login($deslogin, $password){
-
-		$sql = new Sql;
-		
-		$results = $sql->select("
-			SELECT * FROM tb_business a 
-			INNER JOIN tb_addresses b ON( b.idbusiness = a.idbusiness)
-			INNER JOIN tb_contact c ON(c.idbusiness = a.idbusiness)
-			WHERE a.deslogin = :deslogin", array(
-			":deslogin" => $deslogin
-		));
-
-		if(!isset($results[0])){
-			throw new \Exception("Usuário inexistente ou senha inválida");
-			
-		}
-
-		$data = $results[0];
-
-		if($password === $data["despassword"]){
-
-			$business = new Business();
-
-			$business->setData($data);
-
-			$_SESSION[Business::SESSION] = $business->getValues();
-
-			return $business;
-		}else{
-			throw new \Exception("Usuário inexistente ou senha inválida");
-			
-		}
-
-	}
-
-	public static function verify_login(){
-
-		if (
-			!isset($_SESSION[Business::SESSION])
-			||
-			!$_SESSION[Business::SESSION]
-			||
-			!(int)$_SESSION[Business::SESSION]["idbusiness"] > 0
-		){
-			header("Location: /");
-			exit;
-		}
-
-	}
-
-	public static function logout(){
-
-		$_SESSION[Business::SESSION] = NULL;
-
-	}
-
 	public function save(){
 
 		$sql = new Sql();
 
-		$dessubcategory = intval($this->getdessubcategory());
-		 $sql->query("CALL sp_business_save(:desbusiness, :nrcnpj_cpf, :nrphone, :nrwhatsapp,:desemail ,:desaddress ,:desneighborhood ,:descity ,:desstate ,:nrzipcode ,:deslogin, :despassword,:dessubcategory)", array(
-			":desbusiness"		=>$this->getdesbusiness(),
-			":nrcnpj_cpf"		=>$this->getnrcnpj_cpf(),
-			":nrphone"			=>$this->getnrphone(),
-			":nrwhatsapp"		=>$this->getnrwhatsapp(),
-			":desemail"			=>$this->getdesemail(),
-			":desaddress"		=>$this->getdesaddress(),
-			":desneighborhood"	=>$this->getdesneighborhood(),
-			":descity"			=>$this->getdescity(),
-			":desstate"			=>$this->getdesstate(),
-			":nrzipcode"		=>$this->getnrzipcode(),
-			":deslogin"			=>$this->getdeslogin(),
-			":despassword" 		=>$this->getdespassword(),
-			":dessubcategory"	=>$dessubcategory
-			));
-	}
-
-	public function update()
-	{
-		$sql = new Sql();
-
-		$sql->query("CALL sp_business_update(:idbusiness, :desbusiness, :nrcnpj_cpf, :nrphone, :nrwhatsapp,:desemail ,:desaddress ,:desneighborhood ,:descity ,:desstate ,:nrzipcode ,:deslogin)", array(
-			":idbusiness"		=>intval($this->getidbusiness()),
-			":desbusiness"		=>$this->getdesbusiness(),
-			":nrcnpj_cpf"		=>$this->getnrcnpj_cpf(),
-			":nrphone"			=>intval($this->getnrphone()),
-			":nrwhatsapp"		=>intval($this->getnrwhatsapp()),
-			":desemail"			=>$this->getdesemail(),
-			":desaddress"		=>$this->getdesaddress(),
-			":desneighborhood"	=>$this->getdesneighborhood(),
-			":descity"			=>$this->getdescity(),
-			":desstate"			=>$this->getdesstate(),
-			":nrzipcode"		=>intval($this->getnrzipcode()),
-			":deslogin"			=>$this->getdeslogin()
-			));	
-	}
-
-	public function delete(){
-
-		$sql = new Sql;
-
-		$sql->query("DELETE FROM tb_business WHERE idbusiness = :idbusiness",[
-			":idbusiness"=>$this->getidbusiness()
+		$company = $sql->select("
+			CALL save_company (:pname,:pmobile, :paddress, :pzipcode,:pcity, :pcountry,:pprovince,:pcnpj,:poffice_hours, :pfirstname, :plastname,:pemail,:phashed_password,:poffice,:pcpf,:prg,:prg_issuing)",[
+		 	":pname" 		=> $this->getname(),
+		 	":pmobile"       => $this->getmobile(),
+		 	":paddress"		=> $this->getaddress(),
+		 	":pzipcode"		=> $this->getzipcode(),
+		 	":pcity" 		=> $this->getcity(),
+		 	":pcountry" 		=> "Brasil",
+		 	":pprovince"		=> $this->getprovince(),
+		 	":pcnpj" 		=> $this->getcnpj(),
+		 	":poffice_hours" => "00:00",
+		 	":pfirstname" 		=> $this->getfirstname(),
+		 	":plastname" 		=> $this->getlastname(),
+		 	":pemail"      	 	=> $this->getemail(),
+		 	":phashed_password"	=> $this->gethashed_password(),
+		 	":poffice" 			=> $this->getoffice(),
+		 	":pcpf" 				=> (string)$this->getcpf(),
+		 	":prg" 				=> (string)$this->getrg(),
+		 	":prg_issuing" 		=> $this->getrg_issuing()
 		]);
 
+		$this->setData($company[0]);
+		
 	}
 
 	public function get($idbusiness){
@@ -144,7 +62,7 @@ class Business extends Model{
 	{
 		$sql = new Sql;
 
-		$results = $sql->select("SELECT * FROM");
+		$results = $sql->select("SELECT * FROM companies");
 
 		$this->setData($results);
 	}
@@ -203,59 +121,12 @@ class Business extends Model{
 
 	}
 
-	public function addClient(){
-
-		$sql = new Sql;
-
-		return $sql->query("CALL sp_clients_save(:desclient, :desaddress, :desemail, :nrwhatsapp, :nrphone, :idbusiness)",[
-			":desclient"	=>$this->getdesclient(),
-			":desaddress"	=>$this->getdesaddress(),
-			":desemail"		=>$this->getdesemail(),
-			":nrwhatsapp"	=>(int)$this->getnrwhatsapp(),
-			":nrphone"		=>(int)$this->getnrphone(),
-			":idbusiness"	=>$_SESSION[Business::SESSION]["idbusiness"]
-		]);
+	public function hash_password($password)
+	{
+		$salt = bin2hex(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM));
+		$hash = hash('sha256', $salt . $password);
+		
+		return $salt . $hash;
 	}
-
-	public function updateClient($idclient){
-
-		$sql = new Sql; 
-
-		$sql->query("UPDATE tb_clients SET desclient = :desclient, desaddress = :desaddress, desemail = :desemail, nrwhatsapp = :nrwhatsapp, nrphone = :nrphone WHERE idclient = :idclient", [
-			":desclient"	=>$this->getdesclient(),
-			":desaddress"	=>$this->getdesaddress(),
-			":desemail"		=>$this->getdesemail(),
-			":nrwhatsapp"	=>$this->getnrwhatsapp(),
-			":nrphone"		=>$this->getnrphone(),
-			":idclient"		=>$idclient
-		]);
-	}
-
-	public function removeClient($idclient){
-
-		$sql = new Sql;
-
-		$sql->query("DELETE FROM tb_clients WHERE idclient = :idclient",["idclient"	=> $idclient]);
-	}
-
-	public static function listAllClients(){
-
-		$sql = new Sql;
-
-		return $sql->select("
-			SELECT * FROM tb_clients a
-			INNER JOIN tb_clientsbusiness b ON(b.idbusiness = idbusiness)
-			WHERE idbusiness = :idbusiness  AND a.idclient = b.idclient",[
-				":idbusiness" => $_SESSION[Business::SESSION]["idbusiness"]
-			]);
-	}
-
-	public static function getClient($idclient){
-
-		$sql = new Sql;
-
-		return $sql->select("SELECT * FROM tb_clients WHERE idclient = :idclient", ["idclient"	=>	$idclient]);
-	}
-
 }
 ?>

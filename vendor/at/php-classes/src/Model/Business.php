@@ -20,7 +20,7 @@ class Business extends Model{
 		$sql = new Sql();
 
 		$company = $sql->select("
-			CALL save_company (:pname,:pmobile, :paddress, :pzipcode,:pcity, :pcountry,:pprovince,:pcnpj,:poffice_hours, :pfirstname, :plastname,:pemail,:phashed_password,:poffice,:pcpf,:prg,:prg_issuing)",[
+			CALL save_company (:pname,:pmobile, :paddress, :pzipcode,:pcity, :pcountry,:pprovince,:pcnpj,:poffice_hours, :pfirstname, :plastname,:pemail,:phashed_password,:poffice,:pcpf,:prg,:prg_issuing,:pneighborhood)",[
 		 	":pname" 		=> $this->getname(),
 		 	":pmobile"       => $this->getmobile(),
 		 	":paddress"		=> $this->getaddress(),
@@ -37,9 +37,9 @@ class Business extends Model{
 		 	":poffice" 			=> $this->getoffice(),
 		 	":pcpf" 				=> (string)$this->getcpf(),
 		 	":prg" 				=> (string)$this->getrg(),
-		 	":prg_issuing" 		=> $this->getrg_issuing()
+		 	":prg_issuing" 		=> $this->getrg_issuing(),
+		 	":pneighborhood"	=> $this->getneighborhood()
 		]);
-
 		$this->setData($company[0]);
 		
 	}

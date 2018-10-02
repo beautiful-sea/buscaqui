@@ -26,7 +26,7 @@
       }
     </style>
   </head>
-  <body>
+  <body id="body">
 
     <!-- Modal -->
     <div class="modal modal-warning" id="modalBusiness" tabindex="-1" style="z-index: 9999" role="dialog" aria-labelledby="myModalLabel">
@@ -60,7 +60,7 @@
           <div class="navbar-header">
             <div class="navbar-brand">  
               <!-- <img src="/res/site/img/demo/logo-navbar.png" alt=""> -->
-                <input style="background-image: none;" id="search-box-slidebar" type="text" class="form-control" name="q" />
+                <input type="text" name="brandlocation" id="brandlocation" class="form-control" style="background-image: none">
             </div>
           </div>
           <div id="navbar" class="navbar-collapse collapse">

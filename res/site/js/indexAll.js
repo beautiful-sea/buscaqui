@@ -2,37 +2,83 @@
 
   
 
-  $("#busca").keyup(function(){//Ao realizar uma busca por serviços
-
+  $("#busca").keyup(function(){//Ao realizar uma busca por SERVIÇOS
     busca = $("#busca").val();
-    type = 'search';
-    showsearch(busca,type);
+    showsearch(busca);
     $("#eac-container-busca").addClass('color-warning');
   })
 
-  $("#search-box-slidebar").keyup(function(){//Ao realizar uma busca por localização  
-
-    busca = $("#search-box-slidebar").val();
-    type = 'location';
-    showsearch(busca,type);
-     $("#eac-container-search-box-slidebar").addClass('color-warning');
-
+  $("#brandlocation").keyup(function(){//Ao realizar uma busca por CIDADES
+    busca = $("#brandlocation").val();
+    searchLocation(busca);
+    $("#eac-container-brandlocation").addClass('color-warning');
   })
 
-  $("#search-box-slidebar").blur(function(){//Ao realizar uma busca manter fundo transparente
-    $("#search-box-slidebar").css("background-color", "rgba(66,66,66,.04)");
+  $("#brandlocation").click(function(){//Ao CLICAR NA BUSCA DE CIDADES    
+     $("#eac-container-brandlocation").addClass('color-warning');
   })
 
-  $("#menu").click(function(){//Ao realizar uma busca
+$.ajax({
+  type: "POST",
+  url: 'vendor/search.php',
+  data: {
+    acao:'autocomplete'
+  },
+  success: function(data){
+    console.log(data)
+}});
+  function showsearch(busca){//Mostra resultados para a busca realizada em serviços
+    var options = {
+
+      url: function(phrase) {
+        return "vendor/search.php";
+      },
+      template:{
+        type: "description",
+        fields:{
+          description:"icon"
+        }
+      },
+
+      getValue: "name",
+      list: {
+        match: {
+          enabled: true
+        },
+        sort: {
+          enabled: true
+        }
+      },
+
+      ajaxSettings: {
+        dataType: "json",
+        method: "POST",
+        data: {
+          dataType: "json",
+          acao: "autocomplete",
+          parametro: busca
+        }, success: function(data){
+          console.log(data);
+        }
+      },
+
+      preparePostData: function(data) {
+      
+        data.phrase = $("#busca").val();
+     
+        return data;
+      },
+      theme:"dark",
+      requestDelay: 100
+    };
+      $("#busca").easyAutocomplete(options);
+      $("#busca").focus();
     
-    value = $("#search-box-slidebar").val();
+    //$("#search-box-slidebar").attr('background-color','none');
+  }
 
-    console.log(value);
-    $("#lcity").html(value);
-  })
-
-
-  function showsearch(busca,type){//Mostra resultados para a busca realizada
+  function searchLocation(busca){//Mostra resultados para a busca realizada em CIDADES
+      
     var options = {
 
       url: function(phrase) {
@@ -48,7 +94,6 @@
           enabled: true
         }
       },
-
       template: {
         type: "description",
         fields:{
@@ -61,37 +106,40 @@
         method: "POST",
         data: {
           dataType: "json",
-          acao: "autocomplete",
-          parametro: busca,
-          tipo: type
+          acao: "location",
+          parametro: busca
         }, success: function(data){
           
         }
       },
 
       preparePostData: function(data) {
-      if(type == 'search'){
-        data.phrase = $("#busca").val();
-      }else if(type == 'location'){
-        data.phrase = $("#search-box-slidebar").val();
-      }
+      
+        data.phrase = $("#brandlocation").val();
+     
         return data;
       },
-      theme:"dark"
+      theme:"dark",
+      requestDelay: 100 
     };
-
-    console.log(options);
-    if(type == 'search'){
-      $("#busca").easyAutocomplete(options);
-      $("#busca").focus();
-    }else if(type == 'location'){
-
-      $("#search-box-slidebar").easyAutocomplete(options);
-      $("#search-box-slidebar").focus();
-    }
+      $("#brandlocation").easyAutocomplete(options);
+      $("#brandlocation").focus();
+      console.log(options.template);
     
-    $("#search-box-slidebar").attr('background-color','none');
+   $("#brandlocation").attr('background-color','none');
+
   }
+
+  $("#brandlocation").blur(function(){//Ao realizar uma busca manter fundo transparente
+    $("#brandlocation").css("background-color", "rgba(66,66,66,.04)");
+  })
+
+  $("#menu").click(function(){//Ao clicar no menu
+    
+    value = $("#brandlocation").val();
+
+    $("#lcity").html(value);
+  })
 
    function getLocation(){// Pega a localização atual do usuario
         // verifica se o navegador tem suporte a geolocalização
@@ -117,7 +165,7 @@
                           }
                           if(value.types[i] == 'locality'){
                             city = value.long_name;
-                            $("#search-box-slidebar").attr('placeholder',city);
+                            $("#brandlocation").attr("placeholder",city);
                             $("#lcity").html(city);
                           }
                           if(value.types[i] == "administrative_area_level_1"){
@@ -135,6 +183,7 @@
             function(error){ // callback de erro
                alert('Erro ao obter localização!');
                console.log('Erro ao obter localização.', error);
+               $("#body").css('display','none');
             });
         } else {
             console.log('Navegador não suporta Geolocalização!');

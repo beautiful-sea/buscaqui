@@ -19,10 +19,10 @@ class Settings extends MY_Controller
 		}else{
 			redirect('login');
 		}
-		/*if(!$this->user->admin) {
-			$this->session->set_flashdata('message', 'error:'.$this->lang->line('messages_no_access'));
-			redirect('dashboard');
-		}*/
+
+		/****************************/
+		/* MENUS PARA ADMINISTRADOR */
+		/****************************/
 		if($this->user->admin)
 		{
 			$this->view_data['submenu'] = array(
@@ -52,12 +52,16 @@ class Settings extends MY_Controller
 				}
 			}
 			$this->view_data['subcategories'] = Subcategory::find('all');
+
+		/****************************/
+		/* MENUS PARA USUÁRIO COMUM */
+		/****************************/
 		}elseif(!$this->user->admin)
 		{
 			$this->view_data['submenu'] = array(
-							$this->lang->line('application_company_data') => 'settings',
-					 		$this->lang->line('application_access_data') => 'settings/caccess_data',
-					 		$this->lang->line('application_user_data') => 'settings/cuser_data'
+							$this->lang->line('application_financial_data') => 'settings',
+					 		$this->lang->line('application_profile') => 'settings/caccess_data',
+					 		$this->lang->line('application_personal_data') => 'settings/cuser_data'
 					 		
 					 		);	
 			$this->config->load('defaults');
@@ -75,7 +79,9 @@ class Settings extends MY_Controller
 		}
 		
 	}
-	
+	/****************************/
+	/*  CARREGAR CONFIGURAÇÕES  */
+	/****************************/
 	function index()
 	{
 		if($this->user->admin){
@@ -104,6 +110,10 @@ class Settings extends MY_Controller
 
 
 	}
+
+	/****************************/
+	/* ALTERAR DADOS DO USUÁRIO */
+	/****************************/
 	function cuser_data()
 	{	
 		if($_POST && !$this->user->admin){
@@ -135,7 +145,9 @@ class Settings extends MY_Controller
 		}
 
 	}
-
+	/****************************/
+	/* ALTERAR DADOS DE ACESSO  */
+	/****************************/
 	function caccess_data()
 	{	
 		if($_POST && !$this->user->admin){
@@ -187,6 +199,9 @@ class Settings extends MY_Controller
 
 	}
 
+	/***********************************************/
+	/* ALTERAR CONFIGURAÇÕES DA EMPRESA OU DO SITE */
+	/***********************************************/
 	function settings_update(){
 		if($_POST && $this->user->admin){
 
@@ -209,6 +224,7 @@ class Settings extends MY_Controller
 						{
 							$data = array('upload_data' => $this->upload->data());
 							$_POST['logo'] = "files/media/".$data['upload_data']['file_name'];
+							
 							
 						}
 					if ( ! $this->upload->do_upload("userfile2"))
@@ -265,7 +281,6 @@ class Settings extends MY_Controller
 							
 							$data = array('upload_data' => $this->upload->data());
 							$_POST['logo'] = "files/media/".$data['upload_data']['file_name'];
-							var_dump($data);
 						}
 					if ( ! $this->upload->do_upload("cfacade"))
 						{
@@ -307,6 +322,10 @@ class Settings extends MY_Controller
  			redirect('settings');
  		}
 	}
+
+	/*******************************************/
+	/* REINICIAR CONFIGURAÇÕES PADRÕES DO SITE */
+	/*******************************************/
 	function settings_reset($template = FALSE){
 		$this->load->helper('file');
 		$settings = Setting::first();

@@ -80,4 +80,34 @@ function msgsmall(name){//Escreve a mensagem de "somente números" em baixo do c
   }
 
 
+/*FORMATAR CAMPOS COM SOMENTE NÚMEROS, EM TEMPO REAL*/
 
+$('input[name=zipcode]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=zipcode]').val(value);
+})
+
+$('input[name=ddd]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=ddd]').val(value);
+})
+
+$('input[name=mobile]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=mobile]').val(value);
+})
+
+$('input[name=cpf]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=cpf]').val(value);
+})
+
+$('input[name=rg]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=rg]').val(value);
+})
+
+$('input[name=cnpj]').keyup(function(){
+    value = this.value.replace(/\D/g, '');
+    $('input[name=cnpj]').val(value);
+})

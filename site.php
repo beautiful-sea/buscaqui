@@ -51,7 +51,7 @@ $app->get("/eregister", function(){
 	
 	$script = [];
 	array_push($script, '/res/site/js/eregister.js');
-	array_push($script, '/res/site/js/indexAll.js');
+	array_push($script, '/res/site/js/getcep.js');
 	
 	$page = new Page();
 	$categories = new Category();
@@ -72,8 +72,10 @@ $app->post("/eregister", function(){
 		$_POST['hashed_password'] = $business->hash_password($_POST['password']);
 	}
 
+
 	$business->setData($_POST);
 
+	var_dump($business->getValues());
 	$business->save();
 
 	$idcompany = $business->getid();
@@ -81,6 +83,7 @@ $app->post("/eregister", function(){
 	foreach ($_POST['idsubcategory'] as $i => $value) {
 		$category->addCategoryToBusiness($value,$idcompany);
 	}
+
 
 	//header("Location: /admin/login");
 	//exit;

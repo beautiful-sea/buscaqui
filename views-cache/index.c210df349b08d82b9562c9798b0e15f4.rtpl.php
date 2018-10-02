@@ -3,7 +3,7 @@
           <div class="container" style="height: 100%">
             <div class="text-center mb-4">
               <h1 class="no-m ms-site-title color-white center-block ms-site-title-lg mt-2 ">
-                <span class="animated animation-delay-35 fadeInUpBig">All</span>
+                <span class="animated animation-delay-35 fadeInUpBig"><img src="/res/site/img/all.png" width="80px"></span>
               </h1>
               <p class="lead lead-lg color-white text-center center-block mt-2 mw-800 text-uppercase fw-300 animated lightSpeedIn animation-delay-7"><span class="ms-logo ms-logo-white ms-logo-sm"><i class="fa fa-search"></i></span> Encontre
                 <span class="color-warning animated animation-delay-35 fadeInUpBig">tudo</span>
@@ -16,7 +16,7 @@
 
             <div class="form-group label-floating col-md-8 center-block animated lightSpeedIn  animation-delay-7">
               <div class="input-group">
-                  <input type="text" id="busca" class="form-control" class="search-input">
+                  <input type="text" id="busca" class="form-control" class="search-input" style="">
                   <button type="submit" class="btn btn-primary center-block">
                     <span class="color-white">pesquisar</span>
                   </button>

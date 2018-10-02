@@ -99,36 +99,30 @@
 
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <input required type="text" class="form-control " name="address" placeholder="Endereço" > </div>
+                            <input required type="text" id="address" class="form-control " name="address" placeholder="Endereço" > </div>
                         </div>
 
                         <div class="form-group row">
-                          <div class="col-md-4 col-4">
-                            <input required type="text" class="form-control " id="fcity" name="city" placeholder="Cidade" autocomplete="off" onblur="changetheme()" > </div>
+                          <div class="col-md-3 col-3">
+                            <input required type="text" class="form-control " name="zipcode" placeholder="CEP" onfocus="msgsmall(this.name)" autocomplete="off" maxlength="8" onblur="pesquisacep(this.value)"><small class="color-primary" id="smallczipcode"></small>
+                          </div>
+
+                          <div class="col-md-3 col-3">
+                            <input required type="text" class="form-control " name="city" placeholder="Cidade"autocomplete="off" onblur="changetheme()" maxlength="100" > </div>
+
+                          <div class="col-md-3 col-3">
+                            <input required type="text" class="form-control " name="neighborhood" placeholder="Bairro" autocomplete="off" onblur="changetheme()" maxlength="100"> </div>
 
                             <div class="col-md-2 col-2">
                             <input required type="text" maxlength="2" class="form-control " name="province" id="province" placeholder="UF"></div>
-
-                            <div class="col-md-4 col-4">
-                            <input required type="text" class="form-control " name="zipcode" placeholder="CEP" onfocus="msgsmall(this.name)" autocomplete="off" maxlength="8" ><small class="color-primary" id="smallczipcode"></small> </div>
                         </div>
 
                         <div class="form-group row">
                           <div class="col-md-6">
                             <input required type="text" class="form-control" id="cnpj" name="cnpj" placeholder="CNPJ" onfocus="msgsmall(this.name)"><small class="color-primary" id="smallccnpj"></small> </div>
                             <div class="col-md-6">
-                              <input type="checkbox" id="no_cnpj" name="no_cnpj" onchange="ck_cnpj()"> <span class="color-primary">Atesto que sou Freelancer/Autônomo</span></div>
+                              <input type="checkbox" id="no_cnpj" name="no_cnpj" onchange="ck_cnpj()"> <span class="color-primary">Sou Freelancer/Autônomo</span></div>
                         </div>
-                        
-                        <!--<div class="form-group row" >
-                          <label style="text-align: left!important" class="col-lg-4">Horário de funcionamento</label>
-                          <div class="col-md-3 col-3">
-                            <input required type="time" class="form-control " name="start_hour"> </div>
-                            <div class="col-md-2 col-2 color-primary">
-                              <label class="control-label">às</label></div>
-                            <div class="col-md-3 col-3">
-                            <input required type="time" class="form-control " name="end_hour"> </div>
-                        </div>--> 
 
                         <div class="row form-group">
                           <div class="col-md-12">

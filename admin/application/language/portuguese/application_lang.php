@@ -111,6 +111,7 @@ $lang['application_mobile'] = "Celular";
 $lang['application_my_invoices'] = "Minhas Faturas";
 $lang['application_my_projects'] = "Meus Projetos";
 $lang['application_name'] = "Nome";
+$lang['application_neighborhood'] = "Bairro";
 $lang['application_no'] = "Não";
 $lang['application_no_client_assigned'] = "Cliente não atribuído";
 $lang['application_no_items_yet'] = "Ainda nenhum item";

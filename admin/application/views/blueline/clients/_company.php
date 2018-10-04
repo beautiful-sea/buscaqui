@@ -57,6 +57,10 @@ echo form_open_multipart($form_action, $attributes);
         <input id="city" type="text" name="city" class="form-control" value="<?php if(isset($company)){echo $company->city;}?>" />
 </div>
 <div class="form-group">
+        <label for="neighborhood"><?=$this->lang->line('application_neighborhood');?></label>
+        <input id="neighborhood" type="text" name="neighborhood" class="form-control" value="<?php if(isset($company)){echo $company->neighborhood;}?>" />
+</div>
+<div class="form-group">
         <label for="country"><?=$this->lang->line('application_country');?></label>
         <input id="country" type="text" name="country" class="form-control" value="<?php if(isset($company)){echo $company->country;}?>" />
 </div>
@@ -65,8 +69,8 @@ echo form_open_multipart($form_action, $attributes);
         <input id="province" type="text" name="province" class="form-control" value="<?php if(isset($company)){echo $company->province;}?>" />
 </div>
 <div class="form-group">
-        <label for="vat"><?=$this->lang->line('application_vat');?></label>
-        <input id="vat" type="text" name="vat" class="form-control" value="<?php if(isset($company)){echo $company->vat;}?>" />
+        <label for="cnpj">CNPJ</label>
+        <input id="cnpj" type="text" name="cnpj" class="form-control" value="<?php if(isset($company)){echo $company->cnpj;}?>" />
 </div>
 
         <div class="modal-footer">

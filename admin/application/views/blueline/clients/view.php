@@ -10,18 +10,15 @@
 		<div class="subcont">
 		<ul class="details col-md-6">
 			<li><span><?=$this->lang->line('application_company_name');?>:</span> <?php echo $company->name = empty($company->name) ? "-" : $company->name; ?></li>
-			<li><span><?=$this->lang->line('application_primary_contact');?>:</span> <?php if(isset($company->client->firstname)){ echo $company->client->firstname.' '.$company->client->lastname;}else{echo "-";} ?></li>
-			<li><span><?=$this->lang->line('application_email');?>:</span> <?php if(isset($company->client->email)){ echo $company->client->email; }else{ echo "-"; } ?></li>
+			<li><span><?=$this->lang->line('application_primary_contact');?>:</span> <?php if(isset($company->client[0]->firstname)){ echo $company->client[0]->firstname.' '.$company->client[0]->lastname;}else{echo "-";} ?></li>
+			<li><span><?=$this->lang->line('application_email');?>:</span> <?php if(isset($company->client[0]->email)){ echo $company->client[0]->email; }else{ echo "-"; } ?></li>
 			<li><span><?=$this->lang->line('application_website');?>:</span> <?php echo $company->website = empty($company->website) ? "-" : '<a target="_blank" href="http://'.$company->website.'">'.$company->website.'</a>' ?></li>
 			<li><span><?=$this->lang->line('application_phone');?>:</span> <?php echo $company->phone = empty($company->phone) ? "-" : $company->phone; ?></li>
-			<?php if($company->vat != ""){?>
-			<li><span><?=$this->lang->line('application_vat');?>:</span> <?php echo $company->vat; ?></li>
-			<?php } ?>
 			
 		</ul>
 		<span class="visible-xs"></span>
 		<ul class="details col-md-6">
-			<li><span><?=$this->lang->line('application_address');?>:</span> <?php echo $company->address = empty($company->address) ? "-" : $company->address; ?></li>
+			<li><span><?=$this->lang->line('application_address');?>:</span> <?php echo $company->address = empty($company->address) ? "-" : $company->address.', '.$company->neighborhood; ?></li>
 			<li><span><?=$this->lang->line('application_zip_code');?>:</span> <?php echo $company->zipcode = empty($company->zipcode) ? "-" : $company->zipcode; ?></li>
 			<li><span><?=$this->lang->line('application_city');?>:</span> <?php echo $company->city = empty($company->city) ? "-" : $company->city; ?></li>
 			<li><span><?=$this->lang->line('application_country');?>:</span> <?php echo $company->country = empty($company->country) ? "-" : $company->country; ?></li>
@@ -37,8 +34,11 @@
 	 	<div class="col-md-12">
 	 		<?php if(!isset($company->clients[0])){ ?><div class="alert alert-warning"><?=$this->lang->line('application_client_has_no_contacts');?> <a href="<?=base_url()?>clients/create/<?=$company->id;?>" data-toggle="mainmodal"><?=$this->lang->line('application_add_new_contact');?></a></div>
 	 		<?php } ?>
-	 	<div class="data-table-marginbottom">
 
+
+	 	<?php if($company->client[0]){ ?>
+	 	<div class="data-table-marginbottom">
+	 	
 		<div class="table-head"><?=$this->lang->line('application_contacts');?> <span class="pull-right"><a href="<?=base_url()?>clients/create/<?=$company->id;?>" class="btn btn-primary" data-toggle="mainmodal"><?=$this->lang->line('application_add_new_contact');?></a></span></div>
 		<div class="table-div">
 		<table id="contacts" class="data-no-search table" rel="<?=base_url()?>" cellspacing="0" cellpadding="0">
@@ -51,7 +51,8 @@
 			<th class="hidden-xs"><?=$this->lang->line('application_last_login');?></th>
 			<th><?=$this->lang->line('application_action');?></th>
 		</thead>
-		<?php foreach ($company->clients as $value):?>
+
+		<?php foreach ($company->client as $value):?>
 
 		<tr id="<?=$value->id;?>" >
 			<td style="width:10px"><img class="minipic" src="
@@ -76,10 +77,12 @@
 			</td>
 		</tr>
 
-		<?php endforeach;?>
+		<?php endforeach; ?>
 		</table>
 		</div>
 	</div>
+
+<?php } ?>
 	</div>
 </div>
 <div class="row">

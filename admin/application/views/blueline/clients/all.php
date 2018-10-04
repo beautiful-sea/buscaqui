@@ -15,13 +15,12 @@
 			<th class="hidden-xs"><?=$this->lang->line('application_website');?></th>
 			<th><?=$this->lang->line('application_action');?></th>
 		</thead>
-		<?php foreach ($companies as $value):?>
-
+		<?php foreach ($companies as $key => $value):?>
 		<tr  id="<?=$value->id;?>" ><td class="hidden-xs" style="width:70px"><?php if(isset($value->reference)){ echo $value->reference;} ?></td>
 						
 			<td><span class="label label-info"><?php if(isset($value->name)){echo $value->name;} else{echo $this->lang->line('application_no_company_assigned'); }?></span></td>
-			<td class="hidden-xs"><?php if(isset($value->client->firstname)){ echo $value->client->firstname.' '.$value->client->lastname;}else{ echo $this->lang->line('application_no_contact_assigned');} ?></td>
-			<td class="hidden-xs"><?php if(isset($value->client->email)){ echo $value->client->email;}else{ echo $this->lang->line('application_no_contact_assigned');}?></td>
+			<td class="hidden-xs"><?php if(isset($value->client[$key]->firstname)){ echo $value->client[$key]->firstname.' '.$value->client[$key]->lastname;}else{ echo $this->lang->line('application_no_contact_assigned');} ?></td>
+			<td class="hidden-xs"><?php if(isset($value->client[$key]->email)){ echo $value->client[$key]->email;}else{ echo $this->lang->line('application_no_contact_assigned');}?></td>
 			<td class="hidden-xs"><?php echo $value->website = empty($value->website) ? "-" : '<a target="_blank" href="http://'.$value->website.'">'.$value->website.'</a>' ?></td>
 			<td class="option" width="8%">
 				        <button type="button" class="btn-option delete po" data-toggle="popover" data-placement="left" data-content="<a class='btn btn-danger po-delete ajax-silent' href='<?=base_url()?>clients/company/delete/<?=$value->id;?>'><?=$this->lang->line('application_yes_im_sure');?></a> <button class='btn po-close'><?=$this->lang->line('application_no');?></button> <input type='hidden' name='td-id' class='id' value='<?=$value->id;?>'>" data-original-title="<b><?=$this->lang->line('application_really_delete');?></b>"><i class="fa fa-times"></i></button>

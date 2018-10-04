@@ -19,10 +19,16 @@ class Clients extends MY_Controller {
 		
 	}	
 	function index()
-	{
-		$this->view_data['companies'] = Company::find('all',array('conditions' => array('inactive=?','0')));
+	{	
+		$this->company = Company::find('all',array('conditions' => array('inactive=?','0')));
+		foreach ($this->company as $key => $value) {
+			$this->company[$key]->client[$key] = Client::find_by_company_id($this->company[$key]->id);
+			
+		}
+		$this->view_data['companies'] = $this->company;
 		$this->content_view = 'clients/all';
 	}
+
 	function create($company_id = FALSE)
 	{	
 		if($_POST){
@@ -50,6 +56,7 @@ class Clients extends MY_Controller {
 			unset($_POST['send']);
 			unset($_POST['userfile']);
 			unset($_POST['file-name']);
+			$_POST['company_id'] = $this->company->id;
 			if(isset($_POST["access"])){ $_POST["access"] = implode(",", $_POST["access"]); }else{unset($_POST["access"]);}
 			$_POST = array_map('htmlspecialchars', $_POST);
 			$_POST["company_id"] = $company_id;
@@ -222,8 +229,10 @@ class Clients extends MY_Controller {
 		$this->view_data['submenu'] = array(
 						$this->lang->line('application_back') => 'clients',
 				 		
-				 		);	
-		$this->view_data['company'] = Company::find($id);
+				 		);
+		$this->company = Company::find($id);
+		$this->company->client[0] = Client::find_by_company_id($this->company->id);
+		$this->view_data['company'] = $this->company;
 		$this->view_data['invoices'] = Invoice::find('all', array('conditions' => array('estimate != ? AND company_id = ? AND estimate_status != ?', 1, $id, 'Declined')));
 		$this->content_view = 'clients/view';
 	}
